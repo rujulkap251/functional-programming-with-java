@@ -1,5 +1,6 @@
 package src.main.java.programming;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
@@ -55,8 +56,19 @@ public class FP06PlayingWithStrings {
         //Intermediate Operations on streams are lazy. Its only when the terminal operation is executed, the intermediate
         //operations are executed in Java, helping Java to be efficient
 
+        //This operator would not work becuase we have created a list using List.of(...) which creates a
+        //immutable list
+        //courses.replaceAll(String::toUpperCase);
+        //System.out.println(courses);
 
+        //Hence, to perform the above operation, we first need to create a mutable list
+        List<String> modifiableCourses = new ArrayList<>(courses);
+        modifiableCourses.replaceAll(String::toUpperCase);
+        System.out.println(modifiableCourses);
 
+        //Also has removeIf method to remove courses based on a condition
+        modifiableCourses.removeIf(course -> course.length()<6);
+        System.out.println(modifiableCourses);
     }
 
     private static Predicate<Course> createPredicateWithCutOffReviewScore(int cuttOffScore) {
